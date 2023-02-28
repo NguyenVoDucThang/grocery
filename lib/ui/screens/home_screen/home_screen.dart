@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kid_shop/core/constants/app_colors.dart';
-import 'package:kid_shop/ui/screens/home_screen/widgets/cart.dart';
-import 'package:kid_shop/ui/screens/home_screen/widgets/favorite.dart';
-import 'package:kid_shop/ui/screens/home_screen/widgets/home.dart';
-import 'package:kid_shop/ui/screens/home_screen/widgets/profile.dart';
+import 'package:kid_shop/core/dtos/account/account_dto.dart';
+import 'package:kid_shop/ui/screens/home_screen/widgets/cart_page.dart';
+import 'package:kid_shop/ui/screens/home_screen/widgets/favorite_page.dart';
+import 'package:kid_shop/ui/screens/home_screen/widgets/home_page.dart';
+import 'package:kid_shop/ui/screens/home_screen/widgets/profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final AccountDto? accountDto;
+
+  const HomeScreen({Key? key, this.accountDto}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: getBody(),
+        body: getBody(widget.accountDto),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (newIndex) => setState(() => _currentIndex = newIndex),
           currentIndex: _currentIndex,
@@ -64,18 +67,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget getBody() {
+  Widget getBody(AccountDto? accountDto) {
     switch (_currentIndex) {
       case 0:
-        return const Home();
+        return HomePage(accountDto: accountDto);
       case 1:
-        return const Favorite();
+        return const FavoritePage();
       case 2:
-        return const Cart();
+        return const CartPage();
       case 3:
-        return const Profile();
+        return ProfilePage(accountDto: accountDto);
       default:
-        return const Home();
+        return HomePage(accountDto: accountDto);
     }
   }
 }

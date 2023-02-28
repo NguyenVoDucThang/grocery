@@ -10,7 +10,7 @@ import 'package:kid_shop/core/view_models/screens/interface/isign_up_view_model.
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
-import 'package:kid_shop/ui/common_widgets/custom_text_form_field.dart';
+import 'package:kid_shop/ui/common_widgets/custom_outline_text_form_field.dart';
 import 'package:provider/src/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -59,28 +59,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: Validator.validateNameForm,
                       label: 'Name',
                       hintText: 'Enter user name',
                       obscureText: false,
                       controller: nameController,
                     ),
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: Validator.validateEmailForm,
                       label: 'Email',
                       hintText: 'Enter user email',
                       obscureText: false,
                       controller: emailController,
                     ),
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: Validator.validatePasswordForm,
                       label: 'Password',
                       hintText: 'Enter password',
                       obscureText: true,
                       controller: passwordController,
                     ),
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: (value) {
                         if (confirmPasswordController.text
                                 .compareTo(passwordController.text) !=
@@ -102,14 +102,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 text: 'Sign in',
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    final result = await context
-                        .read<ISignUpViewModel>()
-                        .signUp(AccountDto(
-                          username: nameController.text,
-                          password: CryptoHelper.generatedMd5(
-                              passwordController.text),
-                          email: emailController.text,
-                        ));
+                    final result =
+                        await context.read<ISignUpViewModel>().signUp(
+                              AccountDto(
+                                username: nameController.text.trim(),
+                                password: CryptoHelper.generatedMd5(
+                                    passwordController.text.trim()),
+                                email: emailController.text.trim(),
+                              ),
+                            );
 
                     result
                         ? Get.dialog(
@@ -139,13 +140,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             AlertDialog(
                               title: Center(
                                   child: Text(
-                                    'Successful',
-                                    style: AppStyle.h5(),
-                                  )),
+                                'Successful',
+                                style: AppStyle.h5(),
+                              )),
                               actions: [
                                 TextButton(
                                   onPressed: () => Get.back(),
-                                  child: const Text('Close', style:  TextStyle(color: Colors.black),),
+                                  child: const Text(
+                                    'Close',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 )
                               ],
                             ),

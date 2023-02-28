@@ -10,6 +10,22 @@ class AppStyle {
     );
   }
 
+  static TextStyle titleAppBar() {
+    return TextStyle(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.bold,
+      color: Colors.black
+    );
+  }
+
+  static TextStyle h10() {
+    return TextStyle(
+        fontSize: 18.sp,
+        fontWeight: FontWeight.bold,
+        color: Colors.black
+    );
+  }
+
   static TextStyle h2() {
     return TextStyle(
       fontSize: 18.sp,
@@ -21,6 +37,44 @@ class AppStyle {
     return TextStyle(
       fontSize: 14.sp,
       color: Colors.grey,
+    );
+  }
+
+  static TextStyle subTitle() {
+    return TextStyle(
+      fontSize: 12.sp,
+      color: Colors.grey,
+      fontWeight: FontWeight.bold
+    );
+  }
+
+  static TextStyle h7() {
+    return TextStyle(
+      fontSize: 14.sp,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  static TextStyle h6() {
+    return TextStyle(
+      fontSize: 14.sp,
+      color: AppColors.primaryGreen,
+    );
+  }
+
+  static TextStyle price() {
+    return TextStyle(
+      fontSize: 16.sp,
+      color: AppColors.primaryGreen,
+      fontWeight: FontWeight.bold
+    );
+  }
+
+  static TextStyle h8() {
+    return TextStyle(
+      fontSize: 14.sp,
+      color: Colors.white,
     );
   }
 
@@ -36,6 +90,13 @@ class AppStyle {
       color: AppColors.primaryGreen,
       fontSize: 22.sp,
       fontWeight: FontWeight.bold,
+    );
+  }
+
+  static TextStyle productName() {
+    return TextStyle(
+      color: AppColors.titleGreen,
+      fontSize: 15.sp,
     );
   }
 }

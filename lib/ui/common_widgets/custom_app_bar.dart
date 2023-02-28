@@ -4,10 +4,16 @@ import 'package:kid_shop/core/constants/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
+  final Widget? title;
+  final Widget? leading;
+  final List<Widget>? actions;
 
   const CustomAppBar({
     Key? key,
     required this.appBar,
+    this.title,
+    this.leading,
+    this.actions,
   }) : super(key: key);
 
   @override
@@ -15,7 +21,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.white,
-      leading: IconButton(
+      centerTitle: true,
+      title: title,
+      actions: actions,
+      leading: leading ?? IconButton(
         onPressed: () => Get.back(),
         icon: Icon(
           Icons.arrow_back,

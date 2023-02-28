@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_colors.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/constants/text_form_field_validator.dart';
+import 'package:kid_shop/core/services/interfaces/isign_in_service.dart';
 import 'package:kid_shop/core/utils/crypto_helper.dart';
 import 'package:kid_shop/core/view_models/screens/interface/isign_in_view_model.dart';
+import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
-import 'package:kid_shop/ui/common_widgets/custom_text_form_field.dart';
+import 'package:kid_shop/ui/common_widgets/custom_outline_text_form_field.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -55,14 +57,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 10.h),
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: Validator.validateNameForm,
                       label: 'Name',
                       hintText: 'Enter user name',
                       obscureText: false,
                       controller: nameController,
                     ),
-                    CustomTextFormField(
+                    CustomOutlineTextFormField(
                       validator: Validator.validatePasswordForm,
                       label: 'Password',
                       hintText: 'Enter password',
@@ -89,12 +91,15 @@ class _SignInScreenState extends State<SignInScreen> {
                     final result = await context
                         .read<ISignInViewModel>()
                         .signIn(
-                          nameController.text,
-                          CryptoHelper.generatedMd5(passwordController.text),
+                          nameController.text.trim(),
+                          CryptoHelper.generatedMd5(passwordController.text.trim()),
                         );
 
                     result
-                        ? Get.toNamed(MyRouter.homeScreen)
+                        ? Get.toNamed(
+                            MyRouter.homeScreen,
+                            arguments: locator.get<ISignInService>().accountDto,
+                          )
                         : Get.dialog(
                             AlertDialog(
                               title: Center(
@@ -106,7 +111,10 @@ class _SignInScreenState extends State<SignInScreen> {
                               actions: [
                                 TextButton(
                                   onPressed: () => Get.back(),
-                                  child: const Text('Close', style:  TextStyle(color: Colors.black),),
+                                  child: const Text(
+                                    'Close',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 )
                               ],
                             ),

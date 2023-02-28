@@ -21,8 +21,9 @@ class CommonButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(AppColors.primaryGreen),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide.none),
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide.none,
+            ),
           ),
         ),
         onPressed: () => onPressed(),

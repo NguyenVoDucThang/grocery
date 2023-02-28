@@ -9,6 +9,24 @@ class Validator {
     return null;
   }
 
+  static String? validateAddress(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Invalid value';
+    } else if (value.length <= 10) {
+      return 'Address is too short';
+    }
+
+    return null;
+  }
+
+  static String? validateNumber(String? value) {
+    if (value == null || value.length != 10) {
+      return 'Invalid number';
+    }
+
+    return null;
+  }
+
   static String? validateEmailForm(String? value) {
     final bool emailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
