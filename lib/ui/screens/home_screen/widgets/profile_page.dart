@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/dtos/account/account_dto.dart';
+import 'package:kid_shop/core/view_models/screens/interface/iauthentication_view_model.dart';
+import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
+import 'package:provider/src/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   final AccountDto? accountDto;
@@ -108,7 +111,10 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Get.toNamed(MyRouter.signInScreen),
+              onPressed: () {
+                Get.offAndToNamed(MyRouter.signInScreen);
+                context.read<IAuthenticationViewModel>().signOut();
+              },
               child: Row(
                 children:  [
                   const Icon(Icons.login_outlined),

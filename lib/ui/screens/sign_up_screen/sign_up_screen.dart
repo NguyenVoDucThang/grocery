@@ -6,7 +6,7 @@ import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/constants/text_form_field_validator.dart';
 import 'package:kid_shop/core/dtos/account/account_dto.dart';
 import 'package:kid_shop/core/utils/crypto_helper.dart';
-import 'package:kid_shop/core/view_models/screens/interface/isign_up_view_model.dart';
+import 'package:kid_shop/core/view_models/screens/interface/iauthentication_view_model.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
@@ -103,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final result =
-                        await context.read<ISignUpViewModel>().signUp(
+                        await context.read<IAuthenticationViewModel>().signUp(
                               AccountDto(
                                 username: nameController.text.trim(),
                                 password: CryptoHelper.generatedMd5(

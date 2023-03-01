@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_colors.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/constants/text_form_field_validator.dart';
-import 'package:kid_shop/core/services/interfaces/isign_in_service.dart';
 import 'package:kid_shop/core/utils/crypto_helper.dart';
-import 'package:kid_shop/core/view_models/screens/interface/isign_in_view_model.dart';
+import 'package:kid_shop/core/view_models/screens/interface/iauthentication_view_model.dart';
 import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
@@ -88,18 +87,15 @@ class _SignInScreenState extends State<SignInScreen> {
                 text: 'Sign in',
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    final result = await context
-                        .read<ISignInViewModel>()
-                        .signIn(
-                          nameController.text.trim(),
-                          CryptoHelper.generatedMd5(passwordController.text.trim()),
-                        );
+                    final result =
+                        await context.read<IAuthenticationViewModel>().signIn(
+                              nameController.text.trim(),
+                              CryptoHelper.generatedMd5(
+                                  passwordController.text.trim()),
+                            );
 
                     result
-                        ? Get.toNamed(
-                            MyRouter.homeScreen,
-                            arguments: locator.get<ISignInService>().accountDto,
-                          )
+                        ? Get.toNamed(MyRouter.homeScreen)
                         : Get.dialog(
                             AlertDialog(
                               title: Center(
@@ -132,7 +128,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: AppStyle.h3(),
                   ),
                   TextButton(
-                    onPressed: () => Get.toNamed(MyRouter.signUpScreen),
+                    onPressed: () {
+                      Get.toNamed(MyRouter.signUpScreen);
+                      nameController.clear();
+                      passwordController.clear();
+                    },
                     child: Text(
                       'Sign up',
                       style: TextStyle(color: AppColors.primaryGreen),

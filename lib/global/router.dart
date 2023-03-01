@@ -30,9 +30,7 @@ class MyRouter {
       case homeScreen:
         return _buildRouteNavigationWithoutEffect(
           settings,
-          HomeScreen(
-            accountDto: settings.arguments as AccountDto,
-          ),
+          const HomeScreen(),
         );
       case splashScreen:
         return _buildRouteNavigationWithoutEffect(

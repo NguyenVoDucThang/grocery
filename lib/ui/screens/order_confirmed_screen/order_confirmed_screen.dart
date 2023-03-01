@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/view_models/screens/interface/icart_page_view_model.dart';
-import 'package:kid_shop/core/view_models/screens/interface/isign_in_view_model.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
@@ -42,10 +41,7 @@ class OrderConfirmedScreen extends StatelessWidget {
             CommonButton(
               onPressed: () {
                 context.read<ICartPageViewModel>().confirmOrder();
-                Get.offAndToNamed(
-                  MyRouter.homeScreen,
-                  arguments: context.read<ISignInViewModel>().accountDto,
-                );
+                Get.offAndToNamed(MyRouter.homeScreen);
               },
               text: 'Go home',
             )

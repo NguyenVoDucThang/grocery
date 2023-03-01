@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:kid_shop/core/constants/app_colors.dart';
 import 'package:kid_shop/core/dtos/account/account_dto.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
+import 'package:kid_shop/core/view_models/screens/interface/iauthentication_view_model.dart';
 import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/cart_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/favorite_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/home_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/profile_page.dart';
+import 'package:provider/src/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final AccountDto? accountDto;
-
-  const HomeScreen({Key? key, this.accountDto}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: getBody(widget.accountDto),
+        body: getBody(context.read<IAuthenticationViewModel>().accountDto),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (newIndex) => setState(() => _currentIndex = newIndex),
           currentIndex: _currentIndex,
