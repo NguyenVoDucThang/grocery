@@ -6,12 +6,15 @@ import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
+import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
 import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
 import 'package:kid_shop/ui/common_widgets/favorite_button.dart';
 import 'package:kid_shop/ui/common_widgets/product_price.dart';
 import 'package:kid_shop/ui/common_widgets/quantity_button_group.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/src/provider.dart';
 
 class DetailProductScreen extends StatefulWidget {
   final ProductDto productDto;
@@ -25,13 +28,11 @@ class DetailProductScreen extends StatefulWidget {
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
   late final ValueNotifier<int> _quantityController;
-  late final ValueNotifier<bool> _favoriteController;
   final productService = locator<IHomeScreenService>();
 
   @override
   void initState() {
     _quantityController = ValueNotifier(1);
-    _favoriteController = ValueNotifier(widget.productDto.isFavourite);
 
     super.initState();
   }
@@ -39,7 +40,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
   @override
   void dispose() {
     _quantityController.dispose();
-    _favoriteController.dispose();
     super.dispose();
   }
 
@@ -50,10 +50,17 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       appBar: CustomAppBar(
         appBar: AppBar(),
         actions: [
-          FavoriteButton(
-            controller: _favoriteController,
-            onTapFavorite: () =>
-                productService.onTapFavoriteButton(widget.productDto),
+          Consumer<IHomeScreenViewModel>(
+            builder: (_, value, __) {
+              return FavoriteButton(
+                isFavorite: value.products!
+                    .firstWhere((element) => element.id == widget.productDto.id)
+                    .isFavorite,
+                onTapFavorite: () => context
+                    .read<IHomeScreenViewModel>()
+                    .onTapFavoriteButton(widget.productDto),
+              );
+            },
           ),
           SizedBox(width: 15.w),
         ],

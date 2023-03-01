@@ -29,7 +29,7 @@ void setupRestClient() {
     );
 
   } catch (e) {
-    print("Setup Client Errors: ${e.toString()}");
+    // print("Setup Client Errors: ${e.toString()}");
   }
 }
 

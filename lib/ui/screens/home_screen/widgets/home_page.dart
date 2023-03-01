@@ -8,12 +8,27 @@ import 'package:kid_shop/ui/common_widgets/category_item.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
 import 'package:kid_shop/ui/common_widgets/custom_text_form_field.dart';
 import 'package:kid_shop/ui/common_widgets/product_item.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final AccountDto? accountDto;
 
   const HomePage({Key? key, required this.accountDto}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late final IHomeScreenViewModel _homeScreenViewModel;
+
+  @override
+  void initState() {
+    _homeScreenViewModel = context.read<IHomeScreenViewModel>();
+    _homeScreenViewModel.getListProduct();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +60,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hello ${accountDto == null ? '' : accountDto!.username}!'),
+            Text(
+                'Hello ${widget.accountDto == null ? '' : widget.accountDto!.username}!'),
             SizedBox(height: 7.h),
             Text(
               'What are you looking for ?',
@@ -101,57 +117,21 @@ class HomePage extends StatelessWidget {
               style: AppStyle.h2(),
             ),
             SizedBox(height: 10.h),
-            FutureBuilder(
-              future: context
-                  .read<IHomeScreenViewModel>()
-                  .getListProductByType('fruit'),
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<List<ProductDto>> snapshot,
-              ) {
-                if (snapshot.hasData) {
-                  return GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 300,
-                        childAspectRatio: 2 / 3,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                      ),
-                      itemCount:
-                          snapshot.data == null ? 0 : snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ProductItem(
-
-                            productDto: snapshot.data == null
-                                ? ProductDto(
-                                    id: '',
-                                    productName: 'productName',
-                                    imageUrl: 'imageUrl',
-                                    category: 'category',
-                                    price: 0,
-                                    height: 0,
-                                    description: 'description',
-                                    numberOfReview: 0,
-                                    averagePoint: 0)
-                                : snapshot.data![index],
-                        );
-                      });
-                } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Icon(Icons.error),
-                  );
-                } else {
-                  return Center(
-                    child: SizedBox(
-                      width: 30.w,
-                      height: 30.w,
-                      child: const CircularProgressIndicator(),
+            Consumer<IHomeScreenViewModel>(
+              builder: (_, value, __) {
+                return GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 300,
+                      childAspectRatio: 2 / 3,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
                     ),
-                  );
-                }
+                    itemCount: value.products == null ? 0 : value.products!.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        ProductItem(productDto: value.products![index]));
               },
             )
           ],

@@ -6,13 +6,10 @@ import 'package:kid_shop/global/locator.dart';
 
 class HomeScreenService implements IHomeScreenService {
   final _cartDao = locator<CartDao>();
-  List<ProductDto>? _listProduct;
 
   @override
   Future<List<ProductDto>?> getListProduct() async {
-    final listProduct = await getRestClient().getProducts();
-
-    return _listProduct = listProduct;
+    return await getRestClient().getProducts();
   }
 
   @override
@@ -27,9 +24,6 @@ class HomeScreenService implements IHomeScreenService {
   }
 
   @override
-  List<ProductDto>? get listProduct => _listProduct;
-
-  @override
   Future<void> onTapFavoriteButton(ProductDto productDto) async {
     ProductDto newProduct = ProductDto(
       id: productDto.id,
@@ -41,7 +35,7 @@ class HomeScreenService implements IHomeScreenService {
       description: productDto.description,
       numberOfReview: productDto.numberOfReview,
       averagePoint: productDto.averagePoint,
-      isFavourite: !productDto.isFavourite,
+      isFavorite: !productDto.isFavorite,
     );
 
     await getRestClient().editProduct(newProduct, newProduct.id);
@@ -52,7 +46,7 @@ class HomeScreenService implements IHomeScreenService {
     List<ProductDto> listFavoriteProduct = await getListProduct() ?? [];
 
     return listFavoriteProduct =
-        listFavoriteProduct.where((element) => element.isFavourite).toList();
+        listFavoriteProduct.where((element) => element.isFavorite).toList();
   }
 
   @override

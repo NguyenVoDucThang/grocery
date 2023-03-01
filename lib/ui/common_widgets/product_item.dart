@@ -7,9 +7,11 @@ import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
+import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
 import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/favorite_button.dart';
+import 'package:provider/src/provider.dart';
 
 class ProductItem extends StatefulWidget {
   final ProductDto productDto;
@@ -25,11 +27,10 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   late final ValueNotifier<bool> _controller;
-  final productService = locator<IHomeScreenService>();
 
   @override
   void initState() {
-    _controller = ValueNotifier(widget.productDto.isFavourite);
+    _controller = ValueNotifier(widget.productDto.isFavorite);
 
     super.initState();
   }
@@ -70,8 +71,9 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       const Spacer(),
                       FavoriteButton(
-                        controller: _controller,
-                        onTapFavorite: () => productService
+                        isFavorite: widget.productDto.isFavorite,
+                        onTapFavorite: () => context
+                            .read<IHomeScreenViewModel>()
                             .onTapFavoriteButton(widget.productDto),
                       ),
                       SizedBox(width: 5.w),

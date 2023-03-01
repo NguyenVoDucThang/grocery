@@ -16,7 +16,7 @@ abstract class BaseDao<T extends BaseEntity> {
     try {
       await box?.put(entity.id, entity);
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
@@ -25,7 +25,7 @@ abstract class BaseDao<T extends BaseEntity> {
       Map<dynamic, T> data = {for (var e in entities) e.id: e};
       await box?.putAll(data);
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 

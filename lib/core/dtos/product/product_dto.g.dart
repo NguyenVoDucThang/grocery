@@ -16,7 +16,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
       description: json['description'] as String,
       numberOfReview: (json['numberOfReview'] as num).toDouble(),
       averagePoint: (json['averagePoint'] as num).toDouble(),
-      isFavourite: json['isFavourite'] as bool? ?? false,
+      isFavorite: json['isFavorite'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
@@ -30,5 +30,5 @@ Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
       'numberOfReview': instance.numberOfReview,
       'averagePoint': instance.averagePoint,
       'imageUrl': instance.imageUrl,
-      'isFavourite': instance.isFavourite,
+      'isFavorite': instance.isFavorite,
     };

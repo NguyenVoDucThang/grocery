@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
-import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/ui/common_widgets/product_price.dart';
 import 'package:kid_shop/ui/common_widgets/quantity_button_group.dart';

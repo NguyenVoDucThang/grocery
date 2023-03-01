@@ -13,7 +13,7 @@ class ProductDto {
   final double numberOfReview;
   final double averagePoint;
   final String imageUrl;
-  final bool isFavourite;
+  bool isFavorite;
 
   ProductDto({
     required this.id,
@@ -25,7 +25,7 @@ class ProductDto {
     required this.description,
     required this.numberOfReview,
     required this.averagePoint,
-    this.isFavourite = false,
+    this.isFavorite = false,
   });
 
   factory ProductDto.fromJson(Map<String, dynamic> json) => _$ProductDtoFromJson(json);

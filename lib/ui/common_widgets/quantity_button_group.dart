@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
-import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
-import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
 import 'package:kid_shop/core/view_models/screens/interface/icart_page_view_model.dart';
-import 'package:kid_shop/global/locator.dart';
 import 'package:provider/src/provider.dart';
 
 class QuantityButtonGroup extends StatelessWidget {
