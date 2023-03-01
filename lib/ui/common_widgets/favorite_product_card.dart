@@ -10,12 +10,14 @@ class FavoriteProductCard extends StatefulWidget {
   final CartEntity cartEntity;
   final int quantity;
   final bool isCart;
+  final bool isInFavorite;
 
   const FavoriteProductCard({
     Key? key,
     required this.cartEntity,
     required this.quantity,
     this.isCart = false,
+    this.isInFavorite = true,
   }) : super(key: key);
 
   @override
@@ -75,14 +77,17 @@ class _FavoriteProductCardState extends State<FavoriteProductCard> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: QuantityButtonGroup(
-                  id: widget.cartEntity.id ?? '',
-                  controller: _controller,
-                  size: 14,
-                  cartEntity: widget.cartEntity,
-                  isCart: widget.isCart,
+              Visibility(
+                visible: widget.isInFavorite,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: QuantityButtonGroup(
+                    id: widget.cartEntity.id ?? '',
+                    controller: _controller,
+                    size: 14,
+                    cartEntity: widget.cartEntity,
+                    isCart: widget.isCart,
+                  ),
                 ),
               ),
             ],

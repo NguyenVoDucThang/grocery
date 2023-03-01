@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
+import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/dtos/account/account_dto.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
+import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/category_item.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
 import 'package:kid_shop/ui/common_widgets/custom_text_form_field.dart';
@@ -26,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _homeScreenViewModel = context.read<IHomeScreenViewModel>();
-    _homeScreenViewModel.getListProduct();
+    _homeScreenViewModel.getListProductByType();
     super.initState();
   }
 
@@ -80,34 +82,29 @@ class _HomePageState extends State<HomePage> {
               'Categories',
               style: AppStyle.h2(),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: 15.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CategoryItem(
                   title: 'Fruit',
                   imageUrl: 'assets/images/fruit.png',
-                  onTap: () {},
+                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('fruit'),
                 ),
                 CategoryItem(
                   title: 'Meat',
                   imageUrl: 'assets/images/meat.png',
-                  onTap: () {},
+                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('meat'),
                 ),
                 CategoryItem(
                   title: 'Rice',
                   imageUrl: 'assets/images/rice.png',
-                  onTap: () {},
-                ),
-                CategoryItem(
-                  title: 'Meal',
-                  imageUrl: 'assets/images/meal.png',
-                  onTap: () {},
+                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('rice'),
                 ),
                 CategoryItem(
                   title: 'Bakery',
                   imageUrl: 'assets/images/bakery.png',
-                  onTap: () {},
+                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('bakery'),
                 ),
               ],
             ),
@@ -130,8 +127,9 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSpacing: 20,
                     ),
                     itemCount: value.products == null ? 0 : value.products!.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        ProductItem(productDto: value.products![index]));
+                    itemBuilder: (BuildContext context, int index) {
+                      return ProductItem(productDto: value.products![index]);
+                    });
               },
             )
           ],

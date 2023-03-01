@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
+import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
 import 'package:kid_shop/global/locator.dart';
+import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
 import 'package:kid_shop/ui/common_widgets/favorite_product_card.dart';
 
@@ -20,6 +22,7 @@ class FavoritePage extends StatelessWidget {
           style: AppStyle.titleAppBar(),
         ),
         appBar: AppBar(),
+        getBack: () => Get.toNamed(MyRouter.homeScreen),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 10.w),
@@ -36,6 +39,7 @@ class FavoritePage extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return FavoriteProductCard(
+                      isInFavorite: false,
                       cartEntity: CartEntity(
                         imageUrl: snapshot.data![index].imageUrl,
                         productName: snapshot.data![index].productName,

@@ -40,6 +40,14 @@ class AppStyle {
     );
   }
 
+  static TextStyle boldGrey() {
+    return TextStyle(
+      fontSize: 14.sp,
+      color: Colors.grey,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   static TextStyle subTitle() {
     return TextStyle(
       fontSize: 12.sp,

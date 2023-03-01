@@ -20,7 +20,7 @@ class CartPageViewModel extends ChangeNotifier implements ICartPageViewModel {
   @override
   void removeItem(String id) {
     _homeScreenService.removeCart(id);
-    if (_carts!.isNotEmpty == true) {
+    if (_carts?.isNotEmpty == true) {
       _carts!.removeWhere((element) => element.id == id);
     }
     notifyListeners();
@@ -28,13 +28,7 @@ class CartPageViewModel extends ChangeNotifier implements ICartPageViewModel {
 
   @override
   double getTotalCost() {
-    double totalCost = 0;
-
-    for (var e in _carts!) {
-      totalCost += e.totalPrice;
-    }
-
-    return totalCost;
+    return _carts!.fold(0, (previousValue, element) => previousValue + element.totalPrice);
   }
 
   @override

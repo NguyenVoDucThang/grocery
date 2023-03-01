@@ -6,6 +6,7 @@ import 'package:kid_shop/global/locator.dart';
 
 class HomeScreenViewModel extends ChangeNotifier implements IHomeScreenViewModel {
   final _homeScreenService = locator<IHomeScreenService>();
+  String _featuredProduct = 'fruit';
 
   List<ProductDto>? _listProduct;
 
@@ -13,8 +14,10 @@ class HomeScreenViewModel extends ChangeNotifier implements IHomeScreenViewModel
   List<ProductDto>? get products => _listProduct;
 
   @override
-  Future<List<ProductDto>> getListProductByType(String type) async {
-    return await _homeScreenService.getListProductByType(type);
+  Future<List<ProductDto>> getListProductByType() async {
+    _listProduct = await _homeScreenService.getListProductByType(_featuredProduct);
+    notifyListeners();
+    return _listProduct ?? [];
   }
 
   double getTotalCart() {
@@ -35,8 +38,19 @@ class HomeScreenViewModel extends ChangeNotifier implements IHomeScreenViewModel
   @override
   Future<void> onTapFavoriteButton(ProductDto productDto) async {
     await _homeScreenService.onTapFavoriteButton(productDto);
+
     var temp = _listProduct!.firstWhere((element) => element.id == productDto.id);
     temp.isFavorite = !temp.isFavorite;
     notifyListeners();
+  }
+
+  @override
+  // TODO: implement featuredProduct
+  String get featuredProduct => _featuredProduct;
+
+  @override
+  void changeFeaturedProduct(String category) {
+    _featuredProduct = category;
+    getListProductByType();
   }
 }

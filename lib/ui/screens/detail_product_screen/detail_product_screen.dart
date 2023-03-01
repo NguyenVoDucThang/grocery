@@ -65,7 +65,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           SizedBox(width: 15.w),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +122,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
               style: AppStyle.h3(),
             ),
             SizedBox(height: 20.h),
-            const Spacer(),
             Row(
               children: [
                 TextButton(

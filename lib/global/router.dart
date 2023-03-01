@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kid_shop/core/dtos/account/account_dto.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
 import 'package:kid_shop/ui/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:kid_shop/ui/screens/home_screen/home_screen.dart';

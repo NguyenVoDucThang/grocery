@@ -30,10 +30,17 @@ class _CartPageState extends State<CartPage> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         appBar: AppBar(),
+        getBack: () => Get.toNamed(MyRouter.homeScreen),
         title: Text(
           'My Cart',
           style: AppStyle.titleAppBar(),

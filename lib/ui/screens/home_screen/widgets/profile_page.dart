@@ -19,8 +19,9 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         appBar: AppBar(),
+        getBack: () => Get.toNamed(MyRouter.homeScreen),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
