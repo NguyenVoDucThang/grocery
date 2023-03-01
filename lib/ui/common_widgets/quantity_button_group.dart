@@ -51,7 +51,6 @@ class QuantityButtonGroup extends StatelessWidget {
         InkWell(
           onTap: () {
             controller.value++;
-            locator.get<IHomeScreenService>().addCart(cartEntity);
           },
           child: Image.asset(
             'assets/images/add.png',

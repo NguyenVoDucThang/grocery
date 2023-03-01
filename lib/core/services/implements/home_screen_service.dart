@@ -5,6 +5,7 @@ import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
 import 'package:kid_shop/global/locator.dart';
 
 class HomeScreenService implements IHomeScreenService {
+  List<CartEntity>? _carts;
   final _cartDao = locator<CartDao>();
   List<ProductDto>? _listProduct;
 
@@ -57,22 +58,42 @@ class HomeScreenService implements IHomeScreenService {
 
   @override
   Future<void> addCart(CartEntity cartEntity) async {
-    final result = _cartDao.findById(cartEntity.id ?? '') != null;
+    final result = _cartDao.findById(cartEntity.id ?? '');
 
-    if (result) {
-      await _cartDao.update(cartEntity.id ?? '', cartEntity);
+    if (result != null) {
+      await _cartDao.update(
+          cartEntity.id ?? '',
+          CartEntity(
+            imageUrl: result.imageUrl,
+            productName: result.productName,
+            height: result.height,
+            price: result.price,
+            quantity: result.quantity + cartEntity.quantity,
+          ));
     } else {
       await _cartDao.insert(cartEntity);
     }
+    getCarts();
   }
 
   @override
   List<CartEntity> getCarts() {
-    return _cartDao.getAll() == null ? [] : _cartDao.getAll()!;
+    _carts = _cartDao.getAll() == null ? [] : _cartDao.getAll()!;
+
+    return _carts ?? [];
   }
 
   @override
-  void removeCart(String id)  {
+  void removeCart(String id) {
+    if (_carts!.isNotEmpty == true) {
+      _carts!.removeWhere((element) => element.id == id);
+    }
+
     _cartDao.delete(id);
+    getCarts();
   }
+
+  @override
+  // TODO: implement carts
+  List<CartEntity>? get carts => _carts;
 }

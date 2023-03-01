@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kid_shop/core/constants/app_colors.dart';
 import 'package:kid_shop/core/dtos/account/account_dto.dart';
+import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
+import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/cart_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/favorite_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/home_page.dart';
@@ -17,6 +19,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    locator.get<IHomeScreenService>().getCarts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

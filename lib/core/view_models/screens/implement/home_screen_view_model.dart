@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kid_shop/core/dtos/product/product_dto.dart';
+import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
 import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
 import 'package:kid_shop/global/locator.dart';

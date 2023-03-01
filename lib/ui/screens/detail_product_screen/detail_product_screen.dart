@@ -129,6 +129,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                         id: widget.productDto.id,
                       ),
                     );
+                    _quantityController.value = 1;
                   },
                   child: Row(
                     children: const [
