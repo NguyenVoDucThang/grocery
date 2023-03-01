@@ -76,7 +76,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   cartEntity: CartEntity(
                     imageUrl: widget.productDto.imageUrl,
                     productName: widget.productDto.productName,
-                    height: widget.productDto.height.toString(),
+                    weight: widget.productDto.height.toString(),
                     price: widget.productDto.price,
                     quantity: 0,
                   ),
@@ -123,7 +123,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                       CartEntity(
                         imageUrl: widget.productDto.imageUrl,
                         productName: widget.productDto.productName,
-                        height: widget.productDto.height.toString(),
+                        weight: widget.productDto.height.toString(),
                         price: widget.productDto.price,
                         quantity: _quantityController.value,
                         id: widget.productDto.id,
@@ -148,7 +148,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                       CartEntity(
                         imageUrl: widget.productDto.imageUrl,
                         productName: widget.productDto.productName,
-                        height: widget.productDto.height.toString(),
+                        weight: widget.productDto.height.toString(),
                         price: widget.productDto.price,
                         quantity: _quantityController.value,
                         id: widget.productDto.id,

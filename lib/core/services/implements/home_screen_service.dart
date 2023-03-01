@@ -5,7 +5,6 @@ import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
 import 'package:kid_shop/global/locator.dart';
 
 class HomeScreenService implements IHomeScreenService {
-  List<CartEntity>? _carts;
   final _cartDao = locator<CartDao>();
   List<ProductDto>? _listProduct;
 
@@ -66,7 +65,7 @@ class HomeScreenService implements IHomeScreenService {
           CartEntity(
             imageUrl: result.imageUrl,
             productName: result.productName,
-            height: result.height,
+            weight: result.weight,
             price: result.price,
             quantity: result.quantity + cartEntity.quantity,
           ));
@@ -78,22 +77,13 @@ class HomeScreenService implements IHomeScreenService {
 
   @override
   List<CartEntity> getCarts() {
-    _carts = _cartDao.getAll() == null ? [] : _cartDao.getAll()!;
 
-    return _carts ?? [];
+
+    return _cartDao.getAll() == null ? [] : _cartDao.getAll()!;
   }
 
   @override
   void removeCart(String id) {
-    if (_carts!.isNotEmpty == true) {
-      _carts!.removeWhere((element) => element.id == id);
-    }
-
     _cartDao.delete(id);
-    getCarts();
   }
-
-  @override
-  // TODO: implement carts
-  List<CartEntity>? get carts => _carts;
 }

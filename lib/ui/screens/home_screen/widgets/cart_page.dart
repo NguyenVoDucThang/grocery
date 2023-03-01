@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/hive_database/entities/cart_entity/cart_entity.dart';
 import 'package:kid_shop/core/services/interfaces/ihome_screen_service.dart';
+import 'package:kid_shop/core/view_models/screens/interface/icart_page_view_model.dart';
 import 'package:kid_shop/global/locator.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
 import 'package:kid_shop/ui/common_widgets/custom_app_bar.dart';
 import 'package:kid_shop/ui/common_widgets/favorite_product_card.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -19,11 +21,13 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   late final ValueNotifier<List<CartEntity>> controller;
-
+  late final ICartPageViewModel _cartPageViewModel;
   @override
   void initState() {
     // TODO: implement initState
-    controller = ValueNotifier(locator.get<IHomeScreenService>().carts!);
+    _cartPageViewModel = context.read<ICartPageViewModel>();
+    _cartPageViewModel.getCart();
+    controller = ValueNotifier(_cartPageViewModel.carts!);
     super.initState();
   }
 
@@ -39,9 +43,8 @@ class _CartPageState extends State<CartPage> {
       ),
       body: Column(
         children: [
-          ValueListenableBuilder(
-            valueListenable: controller,
-            builder: (_, List<CartEntity> value, __) {
+          Consumer<ICartPageViewModel>(
+            builder: (_,value,__) {
               return Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
@@ -53,15 +56,17 @@ class _CartPageState extends State<CartPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return FavoriteProductCard(
-                        cartEntity: value[index],
-                        quantity: value[index].quantity,
+                        cartEntity: value.carts![index],
+                        quantity: value.carts![index].quantity,
+                        isCart: true,
                       );
                     },
-                    itemCount: value.length,
+                    itemCount: value.carts!.length,
                   ),
                 ),
               );
             },
+
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 10.w),

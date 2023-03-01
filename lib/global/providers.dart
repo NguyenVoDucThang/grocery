@@ -1,5 +1,7 @@
+import 'package:kid_shop/core/view_models/screens/implement/cart_page_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/implement/sign_in_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/implement/sign_up_view_model.dart';
+import 'package:kid_shop/core/view_models/screens/interface/icart_page_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/interface/isign_in_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/interface/isign_up_view_model.dart';
@@ -17,5 +19,8 @@ List<SingleChildWidget> viewModelProviders = [
   ),
   ChangeNotifierProvider<ISignUpViewModel>(
     create: (_) => SignUpViewModel(),
+  ),
+  ChangeNotifierProvider<ICartPageViewModel>(
+    create: (_) => CartPageViewModel(),
   ),
 ];

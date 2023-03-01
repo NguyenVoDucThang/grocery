@@ -123,20 +123,18 @@ class _ProductItemState extends State<ProductItem> {
             ),
             child: IconButton(
               color: Colors.white,
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-              ),
+              icon: const Icon(Icons.shopping_cart_outlined),
               onPressed: () async {
                 await locator.get<IHomeScreenService>().addCart(
-                  CartEntity(
-                    imageUrl: widget.productDto.imageUrl,
-                    productName: widget.productDto.productName,
-                    height: widget.productDto.height.toString(),
-                    price: widget.productDto.price,
-                    quantity: 1,
-                    id: widget.productDto.id,
-                  ),
-                );
+                      CartEntity(
+                        imageUrl: widget.productDto.imageUrl,
+                        productName: widget.productDto.productName,
+                        weight: widget.productDto.height.toString(),
+                        price: widget.productDto.price,
+                        quantity: 1,
+                        id: widget.productDto.id,
+                      ),
+                    );
               },
             ),
           ),

@@ -12,7 +12,7 @@ class CartEntity extends BaseEntity {
   final String productName;
 
   @HiveField(3)
-  final String height;
+  final String weight;
 
   @HiveField(4)
   final double price;
@@ -20,11 +20,13 @@ class CartEntity extends BaseEntity {
   @HiveField(5)
   final int quantity;
 
+  get totalPrice => quantity * price;
+
   CartEntity({
     String? id,
     required this.imageUrl,
     required this.productName,
-    required this.height,
+    required this.weight,
     required this.price,
     required this.quantity,
   }) : super(id: id);

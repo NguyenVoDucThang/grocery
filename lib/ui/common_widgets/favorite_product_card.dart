@@ -10,11 +10,13 @@ import 'package:kid_shop/ui/common_widgets/quantity_button_group.dart';
 class FavoriteProductCard extends StatefulWidget {
   final CartEntity cartEntity;
   final int quantity;
+  final bool isCart;
 
   const FavoriteProductCard({
     Key? key,
     required this.cartEntity,
     required this.quantity,
+    this.isCart = false,
   }) : super(key: key);
 
   @override
@@ -63,7 +65,7 @@ class _FavoriteProductCardState extends State<FavoriteProductCard> {
                       style: AppStyle.titleAppBar(),
                     ),
                     Text(
-                      widget.cartEntity.height,
+                      widget.cartEntity.weight,
                       style: AppStyle.subTitle(),
                     ),
                     SizedBox(height: 2.h),
@@ -81,6 +83,7 @@ class _FavoriteProductCardState extends State<FavoriteProductCard> {
                   controller: _controller,
                   size: 14,
                   cartEntity: widget.cartEntity,
+                  isCart: widget.isCart,
                 ),
               ),
             ],

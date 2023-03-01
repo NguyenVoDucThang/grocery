@@ -39,7 +39,7 @@ class FavoritePage extends StatelessWidget {
                       cartEntity: CartEntity(
                         imageUrl: snapshot.data![index].imageUrl,
                         productName: snapshot.data![index].productName,
-                        height: snapshot.data![index].height.toString(),
+                        weight: snapshot.data![index].height.toString(),
                         price: snapshot.data![index].price,
                         quantity: 0,
                       ),

@@ -20,7 +20,7 @@ class CartEntityAdapter extends TypeAdapter<CartEntity> {
       id: fields[0] as String?,
       imageUrl: fields[1] as String,
       productName: fields[2] as String,
-      height: fields[3] as String,
+      weight: fields[3] as String,
       price: fields[4] as double,
       quantity: fields[5] as int,
     );
@@ -35,7 +35,7 @@ class CartEntityAdapter extends TypeAdapter<CartEntity> {
       ..writeByte(2)
       ..write(obj.productName)
       ..writeByte(3)
-      ..write(obj.height)
+      ..write(obj.weight)
       ..writeByte(4)
       ..write(obj.price)
       ..writeByte(5)
