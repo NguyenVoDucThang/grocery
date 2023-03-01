@@ -5,4 +5,6 @@ abstract class ICartPageViewModel implements ChangeNotifier{
   List<CartEntity>? get carts;
   void removeItem(String id);
   void getCart();
+  double getTotalCost();
+  void confirmOrder();
 }

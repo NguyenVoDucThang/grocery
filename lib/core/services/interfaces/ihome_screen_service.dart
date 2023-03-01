@@ -12,4 +12,5 @@ abstract class IHomeScreenService {
   List<CartEntity> getCarts();
   Future<void> addCart(CartEntity cartEntity);
   void removeCart(String id);
+  void clearCart();
 }

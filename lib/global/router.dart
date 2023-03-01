@@ -7,6 +7,7 @@ import 'package:kid_shop/ui/screens/home_screen/home_screen.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/cart_page.dart';
 import 'package:kid_shop/ui/screens/home_screen/widgets/favorite_page.dart';
 import 'package:kid_shop/ui/screens/oder_confirm_screen/order_confirm_screen.dart';
+import 'package:kid_shop/ui/screens/order_confirmed_screen/order_confirmed_screen.dart';
 import 'package:kid_shop/ui/screens/payment_screen/payment_screen.dart';
 import 'package:kid_shop/ui/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:kid_shop/ui/screens/sign_up_screen/sign_up_screen.dart';
@@ -22,6 +23,7 @@ class MyRouter {
   static const String orderConfirmScreen = '/orderConfirmScreen';
   static const String favoriteScreen = '/favoriteScreen';
   static const String paymentScreen = '/paymentScreen';
+  static const String orderConfirmedScreen = '/orderConfirmedScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -72,10 +74,12 @@ class MyRouter {
       case paymentScreen:
         return _buildRouteNavigationWithoutEffect(
           settings,
-          PaymentScreen(
-            totalCost:
-                settings.arguments == null ? 0 : settings.arguments! as double,
-          ),
+          const PaymentScreen(),
+        );
+      case orderConfirmedScreen:
+        return _buildRouteNavigationWithoutEffect(
+          settings,
+          const OrderConfirmedScreen(),
         );
 
       default:

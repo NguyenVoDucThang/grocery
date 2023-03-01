@@ -20,7 +20,7 @@ class CartEntity extends BaseEntity {
   @HiveField(5)
   final int quantity;
 
-  get totalPrice => quantity * price;
+  double get totalPrice => quantity * price;
 
   CartEntity({
     String? id,

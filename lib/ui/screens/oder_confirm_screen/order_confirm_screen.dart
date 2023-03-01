@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:get/get.dart';
 import 'package:kid_shop/core/constants/app_style.dart';
 import 'package:kid_shop/core/constants/text_form_field_validator.dart';
+import 'package:kid_shop/core/view_models/screens/interface/icart_page_view_model.dart';
 import 'package:kid_shop/core/view_models/screens/interface/ihome_screen_view_model.dart';
 import 'package:kid_shop/global/router.dart';
 import 'package:kid_shop/ui/common_widgets/common_button.dart';
@@ -50,7 +51,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) => Validator.validateAddress(value),
                     decoration: const InputDecoration(
-                      hintText: 'Insert email',
+                      hintText: 'Insert address',
                       prefixIcon: Icon(Icons.location_on_outlined),
                     ),
                   ),
@@ -67,10 +68,10 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                   SizedBox(height: 15.h),
                   TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) => Validator.validateAddress(value),
+                    validator: (value) => Validator.validateEmailForm(value),
                     decoration: const InputDecoration(
                       hintText: 'Insert email',
-                      prefixIcon: Icon(Icons.location_on_outlined),
+                      prefixIcon: Icon(Icons.mail_outline),
                     ),
                   ),
                 ],
@@ -133,7 +134,7 @@ class _OrderConfirmScreenState extends State<OrderConfirmScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  '\$${context.read<IHomeScreenViewModel>().totalCost}',
+                  '\$${context.read<ICartPageViewModel>().getTotalCost()}',
                   style: AppStyle.price(),
                 ),
                 SizedBox(width: 5.w),

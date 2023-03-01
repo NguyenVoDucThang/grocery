@@ -25,4 +25,22 @@ class CartPageViewModel extends ChangeNotifier implements ICartPageViewModel {
     }
     notifyListeners();
   }
+
+  @override
+  double getTotalCost() {
+    double totalCost = 0;
+
+    for (var e in _carts!) {
+      totalCost += e.totalPrice;
+    }
+
+    return totalCost;
+  }
+
+  @override
+  void confirmOrder() {
+    _homeScreenService.clearCart();
+    _carts!.clear();
+    notifyListeners();
+  }
 }

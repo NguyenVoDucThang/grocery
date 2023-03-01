@@ -77,13 +77,16 @@ class HomeScreenService implements IHomeScreenService {
 
   @override
   List<CartEntity> getCarts() {
-
-
     return _cartDao.getAll() == null ? [] : _cartDao.getAll()!;
   }
 
   @override
   void removeCart(String id) {
     _cartDao.delete(id);
+  }
+
+  @override
+  void clearCart() {
+    _cartDao.clear();
   }
 }
