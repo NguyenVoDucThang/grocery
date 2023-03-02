@@ -89,22 +89,26 @@ class _HomePageState extends State<HomePage> {
                 CategoryItem(
                   title: 'Fruit',
                   imageUrl: 'assets/images/fruit.png',
-                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('fruit'),
+                  onTap: () =>
+                      _homeScreenViewModel.changeFeaturedProduct('fruit'),
                 ),
                 CategoryItem(
                   title: 'Meat',
                   imageUrl: 'assets/images/meat.png',
-                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('meat'),
+                  onTap: () =>
+                      _homeScreenViewModel.changeFeaturedProduct('meat'),
                 ),
                 CategoryItem(
                   title: 'Rice',
                   imageUrl: 'assets/images/rice.png',
-                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('rice'),
+                  onTap: () =>
+                      _homeScreenViewModel.changeFeaturedProduct('rice'),
                 ),
                 CategoryItem(
                   title: 'Bakery',
                   imageUrl: 'assets/images/bakery.png',
-                  onTap: () => _homeScreenViewModel.changeFeaturedProduct('bakery'),
+                  onTap: () =>
+                      _homeScreenViewModel.changeFeaturedProduct('bakery'),
                 ),
               ],
             ),
@@ -116,20 +120,41 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 10.h),
             Consumer<IHomeScreenViewModel>(
               builder: (_, value, __) {
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 300,
-                      childAspectRatio: 2 / 3,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
+                return Visibility(
+                  visible: value.products != null,
+                  replacement: SizedBox(
+                    width: Get.width * 0.4,
+                    height: 300.h,
+                    child: ProductItem(
+                      productDto: ProductDto(
+                        id: 'id',
+                        productName: 'productName',
+                        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2bXZbyjsy2knyTmAfr8YheMeSV1vdVXr6ag&usqp=CAU',
+                        category: 'category',
+                        price: 0.0,
+                        height: 12.0,
+                        description: 'description',
+                        numberOfReview: 1.0,
+                        averagePoint: 1,
+                      ),
                     ),
-                    itemCount: value.products == null ? 0 : value.products!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ProductItem(productDto: value.products![index]);
-                    });
+                  ),
+                  child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 300,
+                        childAspectRatio: 2 / 3,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                      ),
+                      itemCount:
+                          value.products == null ? 0 : value.products!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ProductItem(productDto: value.products![index]);
+                      }),
+                );
               },
             )
           ],

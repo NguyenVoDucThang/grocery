@@ -20,6 +20,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   late final ValueNotifier<List<CartEntity>> controller;
   late final ICartPageViewModel _cartPageViewModel;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -49,7 +50,7 @@ class _CartPageState extends State<CartPage> {
       body: Column(
         children: [
           Consumer<ICartPageViewModel>(
-            builder: (_,value,__) {
+            builder: (_, value, __) {
               return Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
@@ -76,7 +77,11 @@ class _CartPageState extends State<CartPage> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 10.w),
             child: CommonButton(
-              onPressed: () => Get.toNamed(MyRouter.orderConfirmScreen),
+              onPressed: () {
+                if (_cartPageViewModel.carts?.isNotEmpty == true) {
+                  Get.toNamed(MyRouter.orderConfirmScreen);
+                }
+              },
               text: 'Checkout',
             ),
           ),
